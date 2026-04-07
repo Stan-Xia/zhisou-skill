@@ -39,11 +39,11 @@ python3 smart_search.py '<query>' --force bilibili           # B站热榜
 
 ### 搜索类
 
-| API | 端点 | 配额/天 | 说明 |
-|-----|------|---------|------|
-| **chat_completions** | `/v2/ai_search/chat/completions` | 100 | 最强深度搜索，AI 总结+引用 |
-| **web_summary** | `/v2/ai_search/web_summary` | 100 | 高性能版 AI 总结 |
-| **web_search** | `/v2/ai_search/web_search` | 50 | 普通搜索结果列表 |
+| API | 端点 | 配额/天 |
+|-----|------|---------|
+| 深度智能搜索 | `/v2/ai_search/chat/completions` | 100次 |
+| 高性能版 | `/v2/ai_search/web_summary` | 100次 |
+| 百度搜索 | `/v2/ai_search/web_search` | 50次 |
 
 ### 百科类
 
@@ -115,7 +115,56 @@ python3 skills/zhisou/scripts/trending.py baidu tech       # 科技
 | 垂类热榜 | 8次 | 超出收费1元/次 |
 | 百度热搜 | 10次 | 民生/财经/科技... |
 
-## 使用方法
+## 高级参数
+
+### 深度搜索参数（仅 chat_completions）
+
+| 参数 | 类型 | 说明 | 示例 |
+|------|------|------|------|
+| `deep_search` | bool | 深度搜索，获取更全面结果（默认 True） | `deep_search=True` |
+| `reasoning` | bool | 开启推理模式，处理复杂问题（默认 False） | `reasoning=True` |
+
+### 通用参数
+
+| 参数 | 类型 | 说明 | 示例 |
+|------|------|------|------|
+| `recency` | str | 时间过滤 (day/week/month/year) | `recency="week"` |
+| `resource_types` | list | 资源类型 (image/video/web) | `resource_types=["image"]` |
+| `top_k` | int | 返回结果数量（默认 10） | `top_k=5` |
+
+### 使用示例
+
+```python
+from smart_search import smart_search
+
+# 基础搜索
+result = smart_search("北京天气")
+
+# 一周内的新闻
+result = smart_search("最新AI新闻", recency="week")
+
+# 开启推理模式（复杂问题）
+result = smart_search("量子计算对未来的影响", reasoning=True)
+
+# 带图片结果
+result = smart_search("科技图片", resource_types=["image"])
+
+# 强制使用深度智能搜索 + 推理
+result = smart_search("什么是AI", force_api="chat_completions", reasoning=True)
+```
+
+### 命令行使用
+
+```bash
+# 深度智能搜索 + 推理
+python3 smart_search.py '量子计算' --force chat_completions --reasoning
+
+# 高性能版 + 一周内
+python3 smart_search.py 'AI新闻' --force smart_search_pro --recency week
+
+# 带图片结果
+python3 smart_search.py '风景' --resource-types image
+```
 
 ### 安装
 
@@ -178,6 +227,12 @@ python3 scripts/trending.py bilibili
    - 搜索类 API 每日限额用完后会**自动失败**
    - 热榜每天**共 8 次**（不是每个平台 8 次）
    - 超出配额可能产生额外费用
+
+3. **⚠️ 免费额度监控（必读）**
+   - **百度计算调用次数的方式与实际可能有较大出入**
+   - **请以千帆后台实际用量为准**：https://console.bce.baidu.com/qianfan/studio/resource
+   - 建议实时监控千帆控制台的用量统计，避免额度用完导致服务中断
+   - 免费额度宝贵，**不要随意测试**，仅在实际需要时调用
 
 3. **调度器行为**
    - 自动按优先级尝试：`chat_completions → web_summary → web_search`

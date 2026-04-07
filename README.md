@@ -56,8 +56,12 @@ python3 scripts/trending.py bilibili
 ## 注意事项
 
 1. **凭证安全**：API Key 不要泄露给他人
-2. **配额限制**：搜索有每日配额限制，超出可能收费
-3. **网络**：需要能访问百度 API
+2. **网络**：需要能访问百度 API
+3. **⚠️ 免费额度监控（必读）**
+   - 百度计算调用次数的方式与实际可能有较大出入
+   - 请以千帆后台实际用量为准：https://console.bce.baidu.com/qianfan/studio/resource
+   - 建议实时监控千帆控制台的用量统计，避免额度用完导致服务中断
+   - 免费额度宝贵，**不要随意测试**，仅在实际需要时调用
 
 ## 技术支持
 
@@ -65,6 +69,13 @@ python3 scripts/trending.py bilibili
 - 问题反馈: Issues
 
 ## 更新日志
+
+### v1.0.2 (2026-04-07)
+- 新增百度搜索 API (`web_search`)，配额50次/天
+- 支持 `search_recency_filter` 时间过滤参数 (week/month/semiyear/year)
+- 支持站点过滤 `site` 参数
+- 支持安全搜索 `safe_search` 参数
+- 修正请求头格式，统一使用 `X-Appbuilder-Authorization`
 
 ### v1.0.1
 - 添加使用方法与注意事项
