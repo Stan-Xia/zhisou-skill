@@ -1,6 +1,6 @@
 ---
-name: zhisou
-description: 百度AI搜索（智搜），集成深度搜索、百科查询、热榜获取等能力。用于网络信息检索、实时资讯、知识查询。
+name: baidu-ai-search
+description: 百度AI搜索，集成深度搜索、百科查询、热榜获取等能力。用于网络信息检索、实时资讯、知识查询。
 metadata: { "openclaw": { "emoji": "🔍︎",  "requires": { "bins": ["python3"], "env":["BAIDU_API_KEY"]},"primaryEnv":"BAIDU_API_KEY" } }
 ---
 
@@ -114,6 +114,90 @@ python3 skills/zhisou/scripts/trending.py baidu tech       # 科技
 | 通用热榜 | 每平台1次 | 9个平台 |
 | 垂类热榜 | 8次 | 超出收费1元/次 |
 | 百度热搜 | 10次 | 民生/财经/科技... |
+
+## 使用方法
+
+### 安装
+
+```bash
+# 方式一：直接克隆
+git clone https://github.com/Stan-Xia/zhisou-skill.git
+cd zhisou-skill
+
+# 方式二：下载 ZIP
+# 下载 https://github.com/Stan-Xia/zhisou-skill/raw/main/zhisou-skill.zip
+# 解压后放入 skills 目录
+```
+
+### 配置凭证
+
+**必需环境变量**：`BAIDU_API_KEY`
+
+获取方式：
+1. 访问 https://console.bce.baidu.com/qianfan/overview
+2. 创建应用，获取 API Key
+3. 设置环境变量：
+
+```bash
+# Linux/Mac
+export BAIDU_API_KEY="你的API Key"
+
+# Windows
+set BAIDU_API_KEY=你的API Key
+
+# 或者在调用时传入
+python3 scripts/smart_search.py '关键词' --api-key 你的API Key
+```
+
+### 基本使用
+
+```bash
+# 智能搜索（自动选最优 API）
+python3 scripts/smart_search.py '搜索内容'
+
+# 指定搜索
+python3 scripts/smart_search.py '搜索内容' --force chat_completions
+
+# 查询热榜
+python3 scripts/trending.py weibo
+python3 scripts/trending.py bilibili
+```
+
+---
+
+## 注意事项
+
+### ⚠️ 重要提醒
+
+1. **凭证安全**
+   - `BAIDU_API_KEY` 是你的百度账号凭证，**不要上传到公开仓库**
+   - 已上传的仓库会自动忽略包含 key 的文件
+   - 使用时通过环境变量传入，不要硬编码
+
+2. **配额限制**
+   - 搜索类 API 每日限额用完后会**自动失败**
+   - 热榜每天**共 8 次**（不是每个平台 8 次）
+   - 超出配额可能产生额外费用
+
+3. **调度器行为**
+   - 自动按优先级尝试：`chat_completions → web_summary → web_search`
+   - 如果某 API 失败，会自动切换下一个
+   - 全部失败才返回错误
+
+4. **性能考虑**
+   - 大关键词搜索可能返回较多结果，耗时较长
+   - 建议配合 OpenClaw 的异步执行
+
+### 故障排查
+
+| 问题 | 解决方案 |
+|------|----------|
+| 提示 "API Key 无效" | 检查 `BAIDU_API_KEY` 是否正确设置 |
+| 提示 "配额不足" | 等待第二天配额重置，或更换 API Key |
+| 返回空结果 | 检查关键词是否正确，尝试简化搜索词 |
+| 网络超时 | 检查服务器网络连接 |
+
+---
 
 ## Current Status
 

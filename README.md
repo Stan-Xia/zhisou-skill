@@ -1,10 +1,10 @@
-# 智搜 (ZhiSou)
+# 百度AI搜索 (BaiduAISearch)
 
 百度 AI 搜索技能 for OpenClaw
 
 ## 简介
 
-智搜是一个集成百度 AI 搜索能力的 OpenClaw 技能，提供：
+百度AI搜索是一个集成百度 AI 搜索能力的 OpenClaw 技能，提供：
 - 智能搜索（自动选择最优 API）
 - 百科查询
 - 热榜获取
