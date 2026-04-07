@@ -2,16 +2,11 @@
 
 ## v1.0.2 (2026-04-07)
 
-### 新增功能
-- 支持百度搜索 API (`/v2/ai_search/web_search`)，配额50次/天
-- 支持 `search_recency_filter` 时间过滤参数 (week/month/semiyear/year)
-- 支持站点过滤 `site` 参数
-- 支持安全搜索 `safe_search` 参数
-
-### 优化
-- 修正请求头格式，统一使用 `X-Appbuilder-Authorization`
+### 功能优化
+- 百度搜索 API 新增参数支持：时间过滤、站点过滤、安全搜索
 - 深度智能搜索支持 `enable_reasoning` 推理模式参数
 - 所有 API 支持 `resource_types` 资源类型过滤 (image/video/web)
+- 修正请求头格式，统一使用 `X-Appbuilder-Authorization`
 
 ### API 端点汇总
 

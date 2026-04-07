@@ -75,11 +75,8 @@ python3 scripts/trending.py bilibili
 ## 更新日志
 
 ### v1.0.2 (2026-04-07)
-- 新增百度搜索 API (`web_search`)，配额50次/天
-- 支持 `search_recency_filter` 时间过滤参数 (week/month/semiyear/year)
-- 支持站点过滤 `site` 参数
-- 支持安全搜索 `safe_search` 参数
-- 修正请求头格式，统一使用 `X-Appbuilder-Authorization`
+- 优化百度搜索 API 参数：支持时间过滤、站点过滤、安全搜索
+- 修正请求头格式
 
 ### v1.0.1
 - 添加使用方法与注意事项
