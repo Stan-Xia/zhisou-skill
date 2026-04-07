@@ -63,6 +63,10 @@ python3 scripts/trending.py bilibili
    - 建议实时监控千帆控制台的用量统计，避免额度用完导致服务中断
    - 免费额度宝贵，**不要随意测试**，仅在实际需要时调用
 
+4. **💰 后付费政策**
+   - 免费额度用完后将自动转为后付费模式
+   - 超额使用会产生欠费，请及时关注账户余额
+
 ## 技术支持
 
 - GitHub: https://github.com/Stan-Xia/zhisou-skill

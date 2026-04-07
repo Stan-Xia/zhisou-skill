@@ -229,12 +229,16 @@ python3 scripts/trending.py bilibili
    - 超出配额可能产生额外费用
 
 3. **⚠️ 免费额度监控（必读）**
-   - **百度计算调用次数的方式与实际可能有较大出入**
-   - **请以千帆后台实际用量为准**：https://console.bce.baidu.com/qianfan/studio/resource
+   - 百度计算调用次数的方式与实际可能有较大出入
+   - 请以千帆后台实际用量为准：https://console.bce.baidu.com/qianfan/studio/resource
    - 建议实时监控千帆控制台的用量统计，避免额度用完导致服务中断
    - 免费额度宝贵，**不要随意测试**，仅在实际需要时调用
 
-3. **调度器行为**
+4. **💰 后付费政策**
+   - 免费额度用完后将自动转为后付费模式
+   - 超额使用会产生欠费，请及时关注账户余额
+
+4. **调度器行为**
    - 自动按优先级尝试：`chat_completions → web_summary → web_search`
    - 如果某 API 失败，会自动切换下一个
    - 全部失败才返回错误
