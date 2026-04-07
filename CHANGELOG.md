@@ -6,6 +6,7 @@
 - 百度搜索 API 新增参数支持：时间过滤、站点过滤、安全搜索
 - 深度智能搜索支持 `enable_reasoning` 推理模式参数
 - 所有 API 支持 `resource_types` 资源类型过滤 (image/video/web)
+- 添加上下文监控策略，避免 400 错误（会话超过 500KB 提醒）
 - 修正请求头格式，统一使用 `X-Appbuilder-Authorization`
 
 ### API 端点汇总
