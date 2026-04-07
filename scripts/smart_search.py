@@ -68,6 +68,12 @@ def smart_search(query: str, force_api: str = None):
             print(f"[调度] {quota['name']} 配额已用完 ({quota['used']}/{quota['limit']})，跳过")
             continue
         
+        # 配额低于 10% 时提示可能收费，并切换到下一个 API
+        remaining = quota["limit"] - quota["used"]
+        if remaining <= quota["limit"] * 0.1:
+            print(f"[⚠️ 警告] {quota['name']} 配额剩余 {remaining} 次 (10%)，继续使用可能产生费用，切换到下一个 API...")
+            continue
+        
         try:
             result = _call_api(api_key, api_name, query)
             QUOTA[api_name]["used"] += 1
